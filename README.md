@@ -20,6 +20,8 @@ Wrapper cookbook for installing and configuring Consul cluster. Includes recipes
     <td>Integer</td>
     <td>How many members to expect before bootstrapping the cluster</td>
     <td><tt>3</tt></td>
+  </tr>
+  <tr>
     <td><tt>[:cybera_consul][:config][:ui_dir]</tt></td>
     <td>String</td>
     <td>Directory containing statc UI files</td>
