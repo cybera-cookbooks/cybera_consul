@@ -13,7 +13,7 @@ template '/etc/bind/named.conf.local' do
 end
 
 consul_definition 'bind9' do
-  type :service
+  type 'service'
   parameters port: 53
   notifies :reload, 'consul_service[consul]', :delayed
 end
