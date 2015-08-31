@@ -19,3 +19,6 @@ suites:
   - name: dns
     run_list:
       - recipe[cybera_consul::dns]
+  - name: ui
+    run_list:
+      - recipe[cybera_consul::ui]

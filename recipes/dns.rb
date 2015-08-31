@@ -14,7 +14,7 @@ end
 
 consul_definition 'bind9' do
   type 'service'
-  parameters port: 53
+  parameters port: 53, tags: [ 'consul_dns' ]
   notifies :reload, 'consul_service[consul]', :delayed
 end
 
