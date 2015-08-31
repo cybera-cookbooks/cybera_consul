@@ -24,7 +24,7 @@ execute 'extract_web_ui' do
 end
 
 execute 'install_web_ui' do
-  command "mv /tmp/dist #{node[:consul][:config][:ui_dir].chomp('/')}"
+  command "rm -r #{node[:consul][:config][:ui_dir]}; mv /tmp/dist #{node[:consul][:config][:ui_dir]}"
   action :nothing
 end
 
