@@ -29,9 +29,31 @@ Wrapper cookbook for installing and configuring Consul cluster. Includes recipes
   </tr>
 </table>
 
+## Recipes
+
+### default
+
+Installs and configures the Consul agent as a client.
+
+### server
+
+Configures the Consul agent as a server.
+
+### dns
+
+Installs and configures bind9 to forward DNS requests to the Consul DNS server.
+
+### ui
+
+Downloads the Consul Web UI files, configures the Consul agent's `ui-dir` and installs nginx as a reverse proxy for the web interface.
+
+### resolv
+
+Configures the `dns-search` and `dns-nameserver` options for eth0. Does NOT install the Consul agent.
+
 ## Usage
 
-Include the appropriate recipe(s) in your node's `run_list`. The `default` recipe is already included by all other recipes. For example, to just deploy the Consul agent as a client:
+Include the appropriate recipe(s) in your node's `run_list`. All recipes except for `resolv` already include the `default` recipe. For example, to just deploy the Consul agent as a client:
 
 ```json
 {
@@ -41,7 +63,7 @@ Include the appropriate recipe(s) in your node's `run_list`. The `default` recip
 }
 ```
 
-Or to deploy the Consul agent with DNS forwarding:
+Or to deploy the Consul agent as a client with DNS forwarding:
 
 ```json
 {
@@ -51,7 +73,7 @@ Or to deploy the Consul agent with DNS forwarding:
 }
 ```
 
-Or to deploy everything:
+Or to deploy the Consul agent as a server along with DNS and the web interface:
 
 ```json
 {
