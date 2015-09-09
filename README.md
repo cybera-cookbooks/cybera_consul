@@ -21,7 +21,7 @@ Installs and configures the Consul agent as a client.
   </tr>
   <tr>
     <td><tt>[:cybera_consul][:config][:client_addr]</tt></td>
-    <td>Integer</td>
+    <td>String</td>
     <td>Bind interface for HTTP, DNS and RPC servers</td>
     <td><tt>127.0.0.1</tt></td>
   </tr>
