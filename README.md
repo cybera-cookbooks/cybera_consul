@@ -2,11 +2,34 @@
 
 Wrapper cookbook for installing and configuring Consul cluster. Includes recipes for deploying the Consul agent in both client and server mode, configuring DNS forwarding with bind9 and deploying the Consul web interface.
 
-## Supported Platforms
+## Platforms
 
 * Ubuntu 14.04
 
-## Attributes
+## Recipes
+
+### default
+
+Installs and configures the Consul agent as a client.
+
+<table>
+  <tr>
+    <th>Key</th>
+    <th>Type</th>
+    <th>Description</th>
+    <th>Default</th>
+  </tr>
+  <tr>
+    <td><tt>[:cybera_consul][:config][:client_addr]</tt></td>
+    <td>Integer</td>
+    <td>Bind interface for HTTP, DNS and RPC servers</td>
+    <td><tt>127.0.0.1</tt></td>
+  </tr>
+</table>
+
+### server
+
+Configures the Consul agent as a server.
 
 <table>
   <tr>
@@ -21,23 +44,7 @@ Wrapper cookbook for installing and configuring Consul cluster. Includes recipes
     <td>How many members to expect before bootstrapping the cluster</td>
     <td><tt>3</tt></td>
   </tr>
-  <tr>
-    <td><tt>[:cybera_consul][:config][:ui_dir]</tt></td>
-    <td>String</td>
-    <td>Directory containing statc UI files</td>
-    <td><tt>/usr/local/share/consul/dist</tt></td>
-  </tr>
 </table>
-
-## Recipes
-
-### default
-
-Installs and configures the Consul agent as a client.
-
-### server
-
-Configures the Consul agent as a server.
 
 ### dns
 
@@ -47,13 +54,55 @@ Installs and configures bind9 to forward DNS requests to the Consul DNS server.
 
 Downloads the Consul Web UI files, configures the Consul agent's `ui-dir` and installs nginx as a reverse proxy for the web interface.
 
-### resolv
+<table>
+  <tr>
+    <th>Key</th>
+    <th>Type</th>
+    <th>Description</th>
+    <th>Default</th>
+  </tr>
+  <tr>
+    <td><tt>[:cybera_consul][:config][:ui_dir]</tt></td>
+    <td>String</td>
+    <td>Directory that will contain the static UI files</td>
+    <td><tt>/usr/local/share/consul/dist</tt></td>
+  </tr>
+</table>
 
-Configures the `dns-search` and `dns-nameserver` options for eth0. Does NOT install the Consul agent.
+### dnsmasq
+
+Installs and configures dnsmasq to route DNS lookups for the `consul` domain to the specified nameserver. Also configures the `search` option for resolv.
+
+<table>
+  <tr>
+    <th>Key</th>
+    <th>Type</th>
+    <th>Description</th>
+    <th>Default</th>
+  </tr>
+  <tr>
+    <td><tt>[:cybera_consul][:dnsmasq][:nameserver]</tt></td>
+    <td>String</td>
+    <td>Nameserver that will respond to lookups for the consul domain</td>
+    <td><tt>n/a</tt></td>
+  </tr>
+  <tr>
+    <td><tt>[:cybera_consul][:dnsmasq][:interface]</tt></td>
+    <td>String</td>
+    <td>Interface on which to configure the `search` option</td>
+    <td><tt>eth0</tt></td>
+  </tr>
+  <tr>
+    <td><tt>[:cybera_consul][:dnsmasq][:search]</tt></td>
+    <td>String</td>
+    <td>Default domain to use for lookups when none is specified</td>
+    <td><tt>node.consul</tt></td>
+  </tr>
+</table>
 
 ## Usage
 
-Include the appropriate recipe(s) in your node's `run_list`. All recipes except for `resolv` already include the `default` recipe. For example, to just deploy the Consul agent as a client:
+Include the appropriate recipe(s) in your node's `run_list`. All recipes except for `dnsmasq` already include the `default` recipe. For example, to just deploy the Consul agent as a client:
 
 ```json
 {

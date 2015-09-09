@@ -22,3 +22,10 @@ suites:
   - name: ui
     run_list:
       - recipe[cybera_consul::ui]
+  - name: dnsmasq
+    run_list:
+      - recipe[cybera_consul::dnsmasq]
+    attributes:
+      cybera_consul:
+        dnsmasq:
+          nameserver: '10.10.10.10'

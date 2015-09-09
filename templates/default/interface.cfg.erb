@@ -1,0 +1,3 @@
+auto <%= node[:cybera_consul][:dnsmasq][:interface] %>
+iface <%= node[:cybera_consul][:dnsmasq][:interface] %> inet dhcp
+dns-search <%= node[:cybera_consul][:dnsmasq][:search] %>
